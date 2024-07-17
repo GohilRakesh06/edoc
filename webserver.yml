@@ -6,7 +6,7 @@
         state: present
     - name: "copy files "
       copy:
-        src: "/var/lib/jenkins/workspace/ansiblejob"
+        src: "/var/lib/jenkins/workspace/ansiblejob/"
         dest: "/var/www/html"
 
     - name: "disable firewall"
