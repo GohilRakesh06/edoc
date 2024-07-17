@@ -1,0 +1,45 @@
+- hosts: webserver
+  tasks:
+    - name: "install httpd"
+      package:
+        name: "httpd"
+        state: present
+    - name: "copy files "
+      copy:
+        src: "/root/webserverfiles/"
+        dest: "/var/www/html"
+
+    - name: "disable firewall"
+      service:
+        name: "firewalld"
+        state: stopped
+
+    - name: "install php"
+      yum:
+        name: "php"
+        state: present
+
+    - name: "install php-mysqld"
+      yum:
+        name: "php-mysqlnd"
+        state: present
+
+    - name: "Disable SELinux"
+      selinux:
+        state: disabled
+
+    - name: "start httpd service"
+      service:
+        name: "httpd"
+        state: restarted
+- hosts: database
+  tasks:
+    - name: "insatll mysql"
+      package:
+        name: "mysql-server"
+        state: "present"
+
+    - name: "start mysql server"
+      service:
+        name: "mysqld"
+        state: started
